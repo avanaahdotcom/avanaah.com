@@ -18,7 +18,17 @@ h1,h2,h3{margin:0;letter-spacing:-.03em;font-weight:800}
 @keyframes fl{50%{transform:translateY(-10px)}}
 .pg{animation:up .6s cubic-bezier(.2,.7,.2,1) both}
 .w{max-width:1320px;margin:0 auto;padding:0 24px}.sec{padding-top:64px}
-.top{background:var(--inv);color:var(--invt);font-size:13px;font-weight:600;padding:11px 24px;display:flex;flex-wrap:wrap;justify-content:center;gap:6px 32px;text-align:center}
+.top{background:var(--inv);color:var(--invt);font-size:13px;font-weight:600;display:flex;align-items:center;justify-content:center;gap:4px;min-height:44px;padding:0 6px}
+.tv{flex:0 1 560px;min-width:0;display:flex;justify-content:center;text-align:center}
+.tm{display:inline-flex;align-items:center;justify-content:center;gap:9px;min-height:44px;padding:0 8px;color:inherit;line-height:1.35;text-wrap:balance;animation:tin .45s cubic-bezier(.2,.7,.2,1) both}
+.tm:hover{color:inherit;text-decoration:underline;text-underline-offset:3px}
+.tm::after{content:"›";opacity:.7;font-size:16px;line-height:1}
+.tm svg{width:17px;height:17px;flex:none;fill:none;stroke:currentColor;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round}
+.tp{flex:none;width:44px;height:44px;border:0;border-radius:50%;background:none;color:inherit;display:flex;align-items:center;justify-content:center;cursor:pointer;opacity:.65;transition:opacity .2s,background .2s}
+.tp:hover{opacity:1;background:rgba(128,128,128,.22)}
+.tp svg{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round}
+@keyframes tin{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+@media(max-width:520px){.top{font-size:12.5px;padding:0 2px}.tp{width:40px}.tm{gap:7px;padding:2px 4px}}
 .hd{position:sticky;top:env(safe-area-inset-top,0px);z-index:100;background:var(--bg);border-bottom:1px solid var(--line)}
 .hr{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:12px 28px;padding-top:14px;padding-bottom:6px}
 .logo{display:flex;align-items:center;gap:10px;font-size:28px;font-weight:800;letter-spacing:-.03em}
@@ -101,7 +111,7 @@ nav{justify-content:center}
 .nl{transition:color .25s;animation:navin .55s cubic-bezier(.2,.7,.2,1) both}
 .ni:nth-child(1) .nl{animation-delay:.05s}.ni:nth-child(2) .nl{animation-delay:.10s}.ni:nth-child(3) .nl{animation-delay:.15s}
 .ni:nth-child(4) .nl{animation-delay:.20s}.ni:nth-child(5) .nl{animation-delay:.25s}.ni:nth-child(6) .nl{animation-delay:.30s}
-.ni:nth-child(7) .nl{animation-delay:.35s}.ni:nth-child(8) .nl{animation-delay:.40s}.ni:nth-child(9) .nl{animation-delay:.45s}
+.ni:nth-child(7) .nl{animation-delay:.35s}.ni:nth-child(8) .nl{animation-delay:.40s}.ni:nth-child(9) .nl{animation-delay:.45s}.ni:nth-child(10) .nl{animation-delay:.50s}
 .nl::after{transform-origin:center;height:2.5px;border-radius:2px}
 .ni:hover .nl{color:var(--ac)}
 .ni:hover .ms{animation:up .45s cubic-bezier(.2,.7,.2,1) both}
@@ -307,9 +317,74 @@ tbody tr:last-child>*{border-bottom:0}
  .doc h2{font-size:24px}.doc .lead{font-size:19px}
 }
 @media(max-width:520px){.mb span{display:none}.mb{padding:0 14px}.hr{gap:10px}.logo img{height:38px}#cart{padding:0 18px}}
+
+/* ============ SHOPPING ASSISTANT (chat widget) ============ */
+.av{position:fixed;right:16px;bottom:calc(16px + env(safe-area-inset-bottom,0px));z-index:250;font-family:inherit}
+.av-fab{display:inline-flex;align-items:center;gap:10px;min-height:56px;padding:0 22px 0 18px;border:0;border-radius:999px;background:var(--inv);color:var(--invt);font:inherit;font-size:15px;font-weight:700;cursor:pointer;box-shadow:0 14px 32px rgba(13,31,69,.35);transition:transform .25s,box-shadow .25s;animation:glow 2.8s ease-in-out infinite}
+.av-fab:hover{transform:translateY(-3px);box-shadow:0 18px 38px rgba(13,31,69,.42)}
+.av-fab svg{width:24px;height:24px;fill:none;stroke:currentColor;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round}
+.av.open .av-fab{display:none}
+.av-panel{position:absolute;right:0;bottom:0;width:384px;max-width:calc(100vw - 32px);height:min(640px,calc(100vh - 100px));height:min(640px,calc(100dvh - 100px));display:flex;flex-direction:column;background:var(--bg);color:var(--fg);border:1px solid var(--line);border-radius:24px;box-shadow:0 28px 60px rgba(13,31,69,.32);overflow:hidden;transform-origin:bottom right}
+.av-panel[hidden]{display:none}
+.av.open .av-panel{animation:pin .35s cubic-bezier(.2,.7,.2,1) both}
+.av-h{display:flex;align-items:center;gap:12px;padding:14px 14px 14px 16px;background:#0D1F45;color:#fff;border-bottom:1px solid rgba(255,255,255,.08)}
+.av-av{width:46px;height:46px;border-radius:50%;background:#D9A94F;color:#0D1F45;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:21px;flex:none}
+.av-ht{flex:1;min-width:0}
+.av-ht b{display:block;font-size:17px;letter-spacing:-.01em;line-height:1.25}
+.av-ht small{display:flex;align-items:flex-start;gap:7px;font-size:12.5px;line-height:1.35;opacity:.88;margin-top:2px}
+.av-ht small i{width:9px;height:9px;border-radius:50%;background:#34D399;flex:none;margin-top:4px;box-shadow:0 0 0 3px rgba(52,211,153,.25)}
+.av-ib{width:44px;height:44px;border-radius:50%;border:0;background:rgba(255,255,255,.14);color:#fff;display:flex;align-items:center;justify-content:center;cursor:pointer;flex:none;transition:background .2s,transform .3s}
+.av-ib:hover{background:rgba(255,255,255,.26)}
+.av-ib.rs:hover svg{transform:rotate(-180deg)}
+.av-ib svg{width:20px;height:20px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;transition:transform .4s}
+.av-m{flex:1;overflow-y:auto;padding:18px 16px 10px;display:flex;flex-direction:column;gap:12px;scroll-behavior:smooth;overscroll-behavior:contain;scrollbar-width:thin;scrollbar-color:var(--bd) transparent}
+.av-b{max-width:90%;padding:14px 18px;border-radius:22px;font-size:15px;line-height:1.5;word-wrap:break-word;animation:up .35s both}
+.av-b p{margin:0 0 8px}.av-b p:last-child{margin-bottom:0}
+.av-b.bot{align-self:flex-start;background:var(--soft);border-bottom-left-radius:7px}
+.av-b.me{align-self:flex-end;background:var(--inv);color:var(--invt);border-bottom-right-radius:7px;font-weight:600}
+.av-b.wide{max-width:96%;width:96%}
+.av-ul{margin:6px 0 8px;padding-left:18px}.av-ul li{margin:3px 0}
+.av-b a:not(.av-l):not(.av-p){color:var(--ac);text-decoration:underline;text-underline-offset:2px}
+.av-sm{font-size:12.5px;color:var(--mut)}
+.av-links{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px}
+.av-l{display:inline-flex;align-items:center;min-height:38px;padding:0 15px;border:1px solid var(--bd);border-radius:999px;background:var(--bg);color:var(--fg);font-size:13.5px;font-weight:600;transition:.2s}
+.av-l:hover{background:var(--inv);color:var(--invt);border-color:var(--inv)}
+.av-opts{display:flex;flex-wrap:wrap;gap:8px;align-self:flex-start;max-width:96%;margin-top:-2px;animation:up .4s .1s both}
+.av-o{min-height:42px;padding:0 17px;border-radius:999px;border:1.5px solid var(--inv);background:var(--bg);color:var(--fg);font:inherit;font-size:14px;font-weight:600;cursor:pointer;transition:background .2s,color .2s,transform .2s}
+.av-o:hover{background:var(--inv);color:var(--invt);transform:translateY(-2px)}
+.av-o:active{transform:scale(.96)}
+.av-p{display:flex;gap:12px;align-items:center;position:relative;margin-top:8px;padding:8px;border:1px solid var(--line);border-radius:16px;background:var(--bg);color:var(--fg);transition:.25s}
+.av-p:hover{border-color:var(--ac);transform:translateX(4px);color:var(--fg)}
+.av-th{flex:none;width:62px;height:76px;border-radius:12px;overflow:hidden;display:block}
+.av-th img{width:100%;height:100%;object-fit:cover;display:block}
+.av-pi{display:flex;flex-direction:column;gap:2px;min-width:0;flex:1}
+.av-pi b{font-size:14px;font-weight:700;line-height:1.3;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;padding-right:4px}
+.av-pi em{font-style:normal;font-size:12px;color:var(--mut)}
+.av-pr{display:flex;gap:8px;align-items:baseline;font-weight:800;font-size:14px;margin-top:2px}
+.av-pr s{font-weight:500;font-size:12.5px;color:var(--mut)}
+.av-tg{position:absolute;top:8px;right:8px;text-decoration:none;background:#D9A94F;color:#0D1F45;font-size:11px;font-weight:800;border-radius:999px;padding:3px 9px}
+.av-dots{display:inline-flex;gap:5px;padding:5px 0}
+.av-dots i{width:8px;height:8px;border-radius:50%;background:var(--mut);animation:bump 1s infinite}
+.av-dots i:nth-child(2){animation-delay:.15s}.av-dots i:nth-child(3){animation-delay:.3s}
+.av-f{display:flex;gap:10px;padding:12px 14px 6px;background:var(--bg)}
+.av-f input{flex:1;min-width:0;min-height:52px;border:1.5px solid transparent;border-radius:999px;padding:0 22px;font:inherit;font-size:15px;color:var(--fg);background:var(--soft);outline:none;transition:border-color .2s,box-shadow .2s}
+.av-f input::placeholder{color:var(--mut)}
+.av-f input:focus{border-color:var(--ac);box-shadow:0 0 0 4px rgba(148,105,31,.16)}
+.av-send{flex:none;width:52px;height:52px;border-radius:50%;border:0;background:var(--inv);color:var(--invt);display:flex;align-items:center;justify-content:center;cursor:pointer;transition:transform .2s,box-shadow .2s}
+.av-send:hover{transform:translateY(-2px);box-shadow:0 10px 20px rgba(13,31,69,.25)}
+.av-send svg{width:22px;height:22px;stroke:currentColor;fill:none;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round}
+.av-note{margin:0;padding:6px 16px calc(14px + env(safe-area-inset-bottom,0px));text-align:center;font-size:12.5px;color:var(--mut);background:var(--bg)}
+.av-note a{text-decoration:underline;text-underline-offset:2px}
+@media(max-width:520px){
+ .av{right:12px;bottom:calc(12px + env(safe-area-inset-bottom,0px))}
+ .av-fab span{display:none}.av-fab{padding:0 16px}
+ .av.open{left:8px;right:8px;bottom:8px}
+ .av-panel{width:auto;max-width:none;left:0;right:0;height:min(86vh,700px);height:min(86dvh,700px)}
+ .av-b{font-size:15px}
+}
 </style></head>
 <body>
-<div class="top"><span>Free shipping on US orders over $[XX]</span><span>10% off your first order when you sign up</span></div>
+<div class="top" role="region" aria-label="Store announcements"><button class="tp" type="button" data-d="-1" aria-label="Previous announcement"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 6l-6 6 6 6"/></svg></button><div class="tv" id="tv"><a class="tm" href="#info-returns">Easy 30-day returns on most items</a></div><button class="tp" type="button" data-d="1" aria-label="Next announcement"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></button></div>
 <header class="hd"><div class="w hr">
 <button class="btn mb" id="mbtn" aria-label="Open menu" aria-expanded="false"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg><span>Menu</span></button>
 <a class="logo" href="#home" aria-label="Avanaah home"><img id="lg" alt="Avanaah, Curated Lifestyle" width="135" height="46"></a>
@@ -348,6 +423,10 @@ const pick=d=>[...d.secs.map(s=>[s,s.items[0]]),...d.secs.map(s=>[s,s.items[1]||
    n = name, price, was = old price (optional; makes it a Sale item),
    img = image path or link (optional), tag = 'New' | 'Bestseller' | 'Sale' (optional),
    url = page to open when the product is clicked (optional)
+   OPTIONAL details the chat assistant reads to answer customers (the more you fill, the better it answers):
+   desc = one or two sentences about the product, colors = 'Black, Navy' or ['Black','Navy'],
+   sizes = 'S, M, L' or ['S','M','L'] (or '7, 8, 9'), material = 'Cotton', keywords = extra search words (e.g. 'gym running'),
+   stock = number left (0 = sold out) or 'in' / 'low' / 'out'
    While this list is empty the store shows demo products so you can see how it looks.
    ===================================================================== */
 const PER=12;
@@ -357,7 +436,7 @@ const PRODUCTS=[
 const money=v=>'$'+Number(v).toFixed(2);
 const find=(a,n)=>a.find(z=>slug(z.n)===slug(n));
 const CAT=[],DEMO=!PRODUCTS.length;
-PRODUCTS.forEach(p=>{const dep=find(D,p.d),sec=dep&&find(dep.secs,p.s),cat=sec&&find(sec.items,p.i);if(!cat){console.warn('Product not matched to a category:',p);return}CAT.push({n:p.n,price:p.price,was:p.was,img:p.img||'',url:p.url||'',tag:p.tag||(p.was>p.price?'Sale':''),dep,sec,cat})});
+PRODUCTS.forEach(p=>{const dep=find(D,p.d),sec=dep&&find(dep.secs,p.s),cat=sec&&find(sec.items,p.i);if(!cat){console.warn('Product not matched to a category:',p);return}CAT.push({n:p.n,price:p.price,was:p.was,img:p.img||'',url:p.url||'',tag:p.tag||(p.was>p.price?'Sale':''),desc:p.desc||'',colors:p.colors||'',sizes:p.sizes||'',material:p.material||'',keywords:p.keywords||'',stock:p.stock,dep,sec,cat})});
 if(DEMO)D.forEach(d=>d.secs.forEach(s=>{for(let j=0;j<36;j++)s.items.forEach(i=>CAT.push({n:i.n+' – Style '+(j+1),price:null,was:null,img:'',url:'',tag:j%12===0?'New':j%12===6?'Sale':j%12===3?'Bestseller':'',dep:d,sec:s,cat:i}))}));
 const isSale=p=>p.tag==='Sale'||p.was>p.price;
 const newest=d=>{const a=CAT.filter(p=>p.dep===d);return[...a.filter(p=>p.tag==='New'),...a.filter(p=>p.tag!=='New')].slice(0,4)};
@@ -425,17 +504,53 @@ return `<div class="pg w">${crumb([['Search']])}<h1 style="font-size:40px;margin
    Anything in [square brackets] is a placeholder to replace.
    ===================================================================== */
 const STORE={
- email:'support@avanaah.com',phone:'[phone number]',address:'[business address]',
+ email:'support@avanaah.com',phone:'+1 (510) 396-1543',
  hours:'Mon–Fri, 9am–6pm [time zone]',replyTime:'1 business day',
- freeShipOver:75,returnDays:30,processing:'1–2 business days',
+ returnDays:30,processing:'1–2 business days',
  rates:[['Standard','5–8 business days','$5.99'],['Expedited','2–3 business days','$12.99'],['Express','1–2 business days','$24.99']],
  state:'[State]',policyDate:'November 13, 2026',
  trackUrl:'',      /* optional: link to your order-status page */
  formEndpoint:''   /* optional: Formspree / Getform URL for the contact form */
 };
+const hoursTxt=()=>String(STORE.hours||'').replace(/\s*\[.*?\]/g,'');
 const ph=v=>/\[.*\]/.test(String(v));
 const mailTo=()=>ph(STORE.email)?`<b>${x(STORE.email)}</b>`:`<a href="mailto:${x(STORE.email)}">${x(STORE.email)}</a>`;
-document.querySelector('.top span:first-child').textContent=`Free shipping on US orders over $${STORE.freeShipOver}`;
+
+/* ---------- announcement bar: rotating messages (all numbers come from STORE above) ---------- */
+(function(){
+const IC={
+ truck:'<path d="M2 6h11v10H2z"/><path d="M13 10h4l3 3v3h-7"/><circle cx="6.5" cy="17.5" r="1.8"/><circle cx="16.5" cy="17.5" r="1.8"/>',
+ tag:'<path d="M4 12V4h8l8 8-8 8z"/><circle cx="8.5" cy="8.5" r="1"/>',
+ back:'<path d="M3 12a9 9 0 1 0 3-6.7"/><path d="M3 4v5h5"/>',
+ box:'<path d="M3 8l9-5 9 5v8l-9 5-9-5z"/><path d="M3 8l9 5 9-5M12 13v8"/>',
+ lock:'<rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/>',
+ spark:'<path d="M12 3l2 6 6 2-6 2-2 6-2-6-6-2 6-2z"/>',
+ chat:'<path d="M21 12a8 8 0 0 1-11.6 7.1L4 20l1-4.6A8 8 0 1 1 21 12z"/>'};
+const MSG=[
+ ['tag','10% off your first order when you sign up','join'],
+ ['back',`Easy ${STORE.returnDays}-day returns on most items`,'#info-returns'],
+ ['box',`Orders packed within ${STORE.processing}, tracking sent by email`,'#info-track'],
+ ['lock','Secure checkout with Shop Pay and Apple Pay','#info-faq'],
+ ['spark','Fresh styles just in. See what is new','#new'],
+ ['chat','Questions? Ask our assistant any time, bottom right','ask']];
+const tv=document.getElementById('tv'),bar=tv.parentElement;let i=0,timer=null,shown=0;
+const rm=matchMedia('(prefers-reduced-motion:reduce)').matches;
+function paint(){const[m,t,h]=MSG[i];const a=document.createElement('a');a.className='tm';a.href=h==='join'?'#home':h==='ask'?'#':h;
+ if(h==='join'||h==='ask')a.dataset.act=h;
+ a.innerHTML=`<svg viewBox="0 0 24 24" aria-hidden="true">${IC[m]}</svg><span>${x(t)}</span>`;tv.replaceChildren(a)}
+function go(d){i=(i+d+MSG.length)%MSG.length;paint()}
+function stop(){clearInterval(timer);timer=null}
+function play(){if(rm||timer||shown>=MSG.length)return;timer=setInterval(()=>{if(document.hidden)return;go(1);if(++shown>=MSG.length){stop();i=0;setTimeout(paint,5000)}},5000)}
+bar.addEventListener('click',e=>{
+ const b=e.target.closest('.tp');if(b){stop();shown=MSG.length;tv.setAttribute('aria-live','polite');go(+b.dataset.d);return}
+ const a=e.target.closest('[data-act]');if(!a)return;e.preventDefault();
+ if(a.dataset.act==='ask'){window.AvanaahAssistant&&AvanaahAssistant.open();return}
+ const f=()=>{const n=document.querySelector('.nlt');if(!n)return false;n.scrollIntoView({behavior:'smooth',block:'center'});const inp=n.querySelector('input');if(inp)setTimeout(()=>inp.focus({preventScroll:true}),500);return true};
+ if(!f()){location.hash='#home';setTimeout(f,300)}});
+bar.addEventListener('mouseenter',stop);bar.addEventListener('mouseleave',play);
+bar.addEventListener('focusin',stop);bar.addEventListener('focusout',play);
+paint();play();
+})();
 
 /* ---------- small builders ---------- */
 const kp=a=>`<div class="kps">${a.map(([t,v,s])=>`<div class="cardx kp"><small>${t}</small><b>${v}</b><span>${s}</span></div>`).join('')}</div>`;
@@ -461,9 +576,9 @@ const INFO_GROUPS=[['Help',['shipping','returns','track','size','faq','contact']
 const PG={};
 
 /* ---------- SHIPPING ---------- */
-PG.shipping=()=>kp([['Processing',STORE.processing,'Mon–Fri, excluding holidays'],['Free shipping',`Over $${STORE.freeShipOver}`,'On eligible US orders'],['Tracking','Every order','Emailed as soon as it ships']])+
+PG.shipping=()=>kp([['Processing',STORE.processing,'Mon–Fri, excluding holidays'],['Shipping from',STORE.rates[0][2],'Standard delivery to US addresses'],['Tracking','Every order','Emailed as soon as it ships']])+
 sec('processing','Order processing',`<p>Orders are packed and handed to the carrier within <b>${x(STORE.processing)}</b>. Orders placed on weekends, holidays or after the daily cutoff start processing on the next business day. During big sales and the holiday season it can take a little longer. If so, we will email you.</p>`)+
-sec('rates','Shipping methods and rates',tbl(['Method','Estimated delivery','Cost'],STORE.rates.map((r,i)=>[r[0],r[1],i===0?`${r[2]} <small class="mut">· free over $${STORE.freeShipOver}</small>`:r[2]]))+note('Delivery estimates start when your order <b>ships</b>, not when it is placed. Weather, carrier delays and peak seasons can affect timing.'))+
+sec('rates','Shipping methods and rates',tbl(['Method','Estimated delivery','Cost'],STORE.rates.map((r,i)=>[r[0],r[1],r[2]]))+note('Delivery estimates start when your order <b>ships</b>, not when it is placed. Weather, carrier delays and peak seasons can affect timing.'))+
 sec('how','What happens after you order',steps([['Order confirmed','You get a confirmation email with your order summary right away.'],['Packed and shipped',`We pack your order within ${x(STORE.processing)} and hand it to the carrier.`],['Tracking sent','A shipping email with your tracking link arrives as soon as the label is scanned.'],['Delivered','Your package arrives at your door. Not what you expected? See our <a href="#info-returns">returns page</a>.']]))+
 sec('where','Where we ship',`<p>We ship across the United States, including Alaska and Hawaii. Standard shipping can go to PO boxes and APO/FPO addresses. Expedited and Express need a street address.</p><p>If we ship to your country, the rate and delivery estimate appear at checkout. Import duties and taxes are the buyer’s responsibility and are collected by the carrier or customs.</p>`)+
 sec('changes','Changing or cancelling an order',`<p>Need to fix an address or cancel? <a href="#info-contact">Contact us</a> as soon as you can. Once an order is packed we cannot change it, but we will always try to help.</p>`)+
@@ -534,7 +649,7 @@ const FAQ=[
 ['Orders','Can I change or cancel my order?',`Contact us as soon as possible with your order number. If it has not been packed yet, we can change it or cancel it. Once it has shipped, you can return it when it arrives.`],
 ['Orders','Do I need an account to order?','No. You can check out as a guest. An account just makes reordering and tracking quicker.'],
 ['Orders','I did not get an order confirmation email. What now?','Check your spam or promotions folder first. If it is not there, contact us with your name and the email address you used.'],
-['Shipping','How much does shipping cost?',`Standard shipping is free on orders over $${STORE.freeShipOver}. Rates for Standard, Expedited and Express appear at checkout and on our shipping page.`],
+['Shipping','How much does shipping cost?',`Shipping cost depends on the method you choose: ${STORE.rates.map(r=>r[0]+' '+r[2]).join(', ')}. The exact rate also appears at checkout and on our shipping page.`],
 ['Shipping','How long will my order take?',`Orders are processed within ${STORE.processing}. After that, delivery takes 5–8 business days with Standard, 2–3 with Expedited and 1–2 with Express.`],
 ['Shipping','Do you ship internationally?','If we ship to your country, you will see the rate and delivery estimate at checkout. Import duties and taxes are paid by the buyer.'],
 ['Shipping','How do I track my package?','Your tracking link is emailed as soon as your order ships. You can also use the <a href="#info-track">Track my order</a> page.'],
@@ -561,8 +676,8 @@ PG.faq=()=>`<div class="faqbar"><label class="sb" style="max-width:none;flex:1 1
 /* ---------- CONTACT ---------- */
 PG.contact=()=>`<div class="kps">
 <div class="cardx kp"><small>Email</small><b>${mailTo()}</b><span>We reply within ${x(STORE.replyTime)}</span></div>
-<div class="cardx kp"><small>Phone / WhatsApp</small><b>${x(STORE.phone)}</b><span>${x(STORE.hours)}</span></div>
-<div class="cardx kp"><small>Address</small><b style="font-size:16px;line-height:1.4">${x(STORE.address)}</b><span>Mail only, no walk-in store</span></div></div>
+<div class="cardx kp"><small>Phone</small><b><a href="tel:${x(STORE.phone.replace(/[^\d+]/g,''))}">${x(STORE.phone)}</a></b><span>${x(hoursTxt())}</span></div>
+</div>
 <div class="two-col" style="margin-top:28px"><div class="cardx fc"><h2>Send us a message</h2>
 <form class="frm" id="cf" novalidate><div class="two"><label class="fld">Your name<input name="name" required autocomplete="name"></label><label class="fld">Email<input name="email" type="email" required autocomplete="email"></label></div>
 <div class="two"><label class="fld">Topic<select name="topic"><option>Order question</option><option>Return or exchange</option><option>Sizing help</option><option>Product question</option><option>Something else</option></select></label><label class="fld">Order number (optional)<input name="order" placeholder="#1042"></label></div>
@@ -591,7 +706,7 @@ PG.privacy=()=>legal([
 ['Security',`<p>We use reasonable technical and organizational measures to protect your information, including encrypted connections and secure payment providers. No system is completely secure, so we cannot guarantee absolute security.</p>`],
 ['Third-party links',`<p>Our store may link to other websites. We are not responsible for their privacy practices, so please read their policies.</p>`],
 ['Changes to this policy',`<p>We may update this policy from time to time. The “last updated” date at the top shows the latest version. Big changes will be highlighted on the site or sent by email.</p>`],
-['Contact us',`<p>Avanaah<br>${x(STORE.address)}<br>Email: ${mailTo()}</p>`]
+['Contact us',`<p>Avanaah<br>Email: ${mailTo()}${ph(STORE.phone)?'':`<br>Phone: ${x(STORE.phone)}`}</p>`]
 ]);
 PG.terms=()=>legal([
 ['Agreement to these terms',`<p>By visiting or buying from Avanaah (“we”, “us”), you agree to these terms and our <a href="#info-privacy">Privacy Policy</a>. If you do not agree, please do not use the store.</p>`],
@@ -610,7 +725,7 @@ PG.terms=()=>legal([
 ['Indemnification',`<p>You agree to defend and hold us harmless from claims or costs arising from your breach of these terms or misuse of the store.</p>`],
 ['Governing law',`<p>These terms are governed by the laws of the State of ${x(STORE.state)} and the United States, without regard to conflict-of-law rules. Disputes will be handled in the courts of that state, unless the law gives you the right to bring a claim elsewhere.</p>`],
 ['Changes to these terms',`<p>We may update these terms from time to time. The updated version applies from the “last updated” date at the top. Continuing to use the store means you accept the changes.</p>`],
-['Contact us',`<p>Questions about these terms? Email ${mailTo()} or write to ${x(STORE.address)}.</p>`]
+['Contact us',`<p>Questions about these terms? Email ${mailTo()}${ph(STORE.phone)?'':` or call ${x(STORE.phone)}`}.</p>`]
 ]);
 
 /* ---------- page shell ---------- */
@@ -651,7 +766,7 @@ navEl.addEventListener('click',e=>{if(e.target.closest('a')){navEl.classList.add
 navEl.addEventListener('mouseleave',()=>navEl.classList.remove('shut'));
 const drw=document.getElementById('drw');
 drw.innerHTML=`<div class="dov" data-close></div><aside class="dp" role="dialog" aria-label="Menu"><div class="dh"><b>Menu</b><button class="dx" data-close aria-label="Close menu">✕</button></div>
-${D.map(d=>`<details class="dd"><summary>${x(d.n)}<i aria-hidden="true"></i></summary><a class="da" href="#${d.id}">Shop all ${x(d.n.toLowerCase())}</a>${d.secs.map(s=>`<div class="ds"><a class="dsh" href="#${link(d,s)}">${x(s.n)}</a>${s.items.map(i=>`<a href="#${link(d,s,i)}">${x(i.n)}</a>`).join('')}</div>`).join('')}</details>`).join('')}
+<a class="dl" href="#home">Home</a>${D.map(d=>`<details class="dd"><summary>${x(d.n)}<i aria-hidden="true"></i></summary><a class="da" href="#${d.id}">Shop all ${x(d.n.toLowerCase())}</a>${d.secs.map(s=>`<div class="ds"><a class="dsh" href="#${link(d,s)}">${x(s.n)}</a>${s.items.map(i=>`<a href="#${link(d,s,i)}">${x(i.n)}</a>`).join('')}</div>`).join('')}</details>`).join('')}
 <a class="dl" href="#new">New In</a><a class="dl" href="#sale" style="color:var(--ac)">Sale</a>
 <div class="dfoot"><b>Help</b>${['shipping','returns','track','size','faq','contact'].map(k=>`<a href="#info-${k}">${x(INFO[k])}</a>`).join('')}<b>Company</b>${['about','privacy','terms'].map(k=>`<a href="#info-${k}">${x(INFO[k])}</a>`).join('')}</div></aside>`;
 const mbtn=document.getElementById('mbtn');
@@ -677,7 +792,7 @@ else if(p[0]==='info'&&PG[p[1]])o=infoPage(p[1]);
 else o=home();
 app.innerHTML=o;reveal();document.title=p[0]==='info'&&INFO[p[1]]?INFO[p[1]]+' | Avanaah':T0;if(!keep)scrollTo(0,0)}
 
-document.getElementById('nav').innerHTML=D.map(d=>`<div class="ni"><a class="nl" href="#${d.id}">${x(d.n)}</a><div class="mega"><div class="mc">${d.secs.map(s=>`<div class="ms"><a class="mh" href="#${link(d,s)}">${x(s.n)}</a>${s.items.map(i=>`<a href="#${link(d,s,i)}">${x(i.n)}</a>`).join('')}</div>`).join('')}</div><a class="mp" href="#${d.id}" style="background:${d.c}"><small>Featured photo</small><b style="font-size:20px">${x(d.promo)}</b><u>Shop now</u></a></div></div>`).join('')+'<div class="ni"><a class="nl" href="#new">New In</a></div><div class="ni"><a class="nl" href="#sale" style="color:var(--ac);font-weight:800">Sale</a></div>';
+document.getElementById('nav').innerHTML='<div class="ni"><a class="nl" href="#home">Home</a></div>'+D.map(d=>`<div class="ni"><a class="nl" href="#${d.id}">${x(d.n)}</a><div class="mega"><div class="mc">${d.secs.map(s=>`<div class="ms"><a class="mh" href="#${link(d,s)}">${x(s.n)}</a>${s.items.map(i=>`<a href="#${link(d,s,i)}">${x(i.n)}</a>`).join('')}</div>`).join('')}</div><a class="mp" href="#${d.id}" style="background:${d.c}"><small>Featured photo</small><b style="font-size:20px">${x(d.promo)}</b><u>Shop now</u></a></div></div>`).join('')+'<div class="ni"><a class="nl" href="#new">New In</a></div><div class="ni"><a class="nl" href="#sale" style="color:var(--ac);font-weight:800">Sale</a></div>';
 document.getElementById('ft').innerHTML=`<div class="c" style="flex:1.5 1 260px"><a class="logo" href="#home" aria-label="Avanaah home"><img src="${LOGO}" alt="Avanaah, Curated Lifestyle" height="60"></a><p style="font-size:14px;line-height:1.6;color:var(--mut);max-width:320px">Fashion, shoes, jewelry, beauty, accessories and gadgets for the whole family, in one easy-to-shop store.</p><b style="margin:10px 0 0">Follow us</b><div class="soc"><a href="${SOCIAL.facebook}" target="_blank" rel="noopener" aria-label="Avanaah on Facebook"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg></a><a href="${SOCIAL.instagram}" target="_blank" rel="noopener" aria-label="Avanaah on Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1.2" fill="currentColor" stroke="none"/></svg></a><a href="${SOCIAL.tiktok}" target="_blank" rel="noopener" aria-label="Avanaah on TikTok"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.15 1.07-.14 1.61.24 1.64 1.82 3.02 3.5 2.87 1.12-.01 2.19-.66 2.77-1.61.19-.33.4-.67.41-1.06.1-1.79.06-3.57.07-5.36.01-4.03-.01-8.05.02-12.07z"/></svg></a></div></div><div class="c"><b>Shop</b>${D.map(d=>`<a href="#${d.id}">${x(d.n)}</a>`).join('')}</div><div class="c"><b>Help</b>${['shipping','returns','track','size','faq','contact'].map(k=>`<a href="#info-${k}">${x(INFO[k])}</a>`).join('')}</div><div class="c"><b>Company</b>${['about','privacy','terms'].map(k=>`<a href="#info-${k}">${x(INFO[k])}</a>`).join('')}<a href="#home" data-top>Back to top ↑</a></div>`;
 const cartEl=document.getElementById('cart');
 document.addEventListener('click',e=>{const t=e.target.closest('[data-add],.heart,[data-tab],[data-go]');if(!t)return;
@@ -687,4 +802,260 @@ else if(t.dataset.tab){tab=t.dataset.tab;route(true)}
 else{const el=document.getElementById(t.dataset.go);if(el)el.scrollIntoView({behavior:'smooth'})}});
 document.getElementById('q').addEventListener('keydown',e=>{if(e.key==='Enter'&&e.target.value.trim()){qv=e.target.value.trim();location.hash==='#search'?route():location.hash='search'}});
 addEventListener('hashchange',()=>route());route();
+</script>
+<script>
+/* =====================================================================
+   SHOPPING ASSISTANT (built-in, free, no API).
+   It answers ONLY from this page's own data, so it never invents anything:
+   STORE settings, FAQ, size guide, departments/categories and PRODUCTS.
+   Add products to PRODUCTS (with optional desc, colors, sizes, material,
+   keywords, stock) and the assistant can find them, filter by price,
+   color, size and sale, compare, and describe them. No other change needed.
+   ===================================================================== */
+(function(){
+'use strict';
+const GEN=new Set(['men','man','women','woman','kid','girl','boy','baby','unisex','lady','ladies']);
+const STOP=new Set('a an the i me my is are do you have any for to of in on and or show find want need looking look please can what how about some with your get buy it be there under below less than im am like just would could should does this that those these where when which who why much many u ur plz pls dao dekhao ache achhe er te ta her him his she he we they them our us'.split(' '));
+const norm=s=>String(s).toLowerCase().replace(/[’']s\b/g,'').replace(/[^a-z0-9$.]+/g,' ').replace(/\.(?!\d)/g,' ').trim();
+const stem=w=>{if(w.length<4)return w;if(/(sses|shes|ches|xes)$/.test(w))w=w.slice(0,-2);else if(!/ss$/.test(w))w=w.replace(/s$/,'');return /ie$/.test(w)&&w.length>3?w.slice(0,-2)+'y':w};
+const qtoks=s=>norm(s).split(' ').filter(w=>w&&!STOP.has(w)&&!/^[$\d.]+$/.test(w)&&w.length>1).map(stem);
+const CTRL=new Set('sale discount offer deal new newest latest arrival cheap cheaper cheapest expensive premium popular trending bestseller best seller size price cost budget affordable luxury product item color colour lowest highest dollar usd clearance reduced'.split(' ').map(stem));
+const A=(h,l,ex)=>`<a class="av-l" href="${x(h)}"${ex||''}>${x(l)}</a>`;
+const LK=a=>`<div class="av-links">${a.join('')}</div>`;
+const UL=a=>`<ul class="av-ul">${a.map(i=>`<li>${i}</li>`).join('')}</ul>`;
+const hoursClean=()=>String(STORE.hours||'').replace(/\s*\[.*?\]/g,'');
+const O=(l,a,v)=>({l,a,v});
+const list=v=>(Array.isArray(v)?v:String(v||'').split(/[,/|]/)).map(s=>String(s).trim()).filter(Boolean);
+const sizesOf=p=>list(p.sizes).map(s=>s.toUpperCase());
+const isOut=p=>p.stock===0||/^(out|sold)/i.test(String(p.stock||''));
+function stockTxt(p){const s=p.stock;if(s===undefined||s===null||s==='')return'';if(typeof s==='number')return s<=0?'Sold out':s<=5?`Only ${s} left`:'In stock';const v=String(s).toLowerCase();return /out|sold/.test(v)?'Sold out':/low|few|limited/.test(v)?'Low stock':'In stock'}
+
+/* ---------- catalog search ---------- */
+let IDX;
+function idx(){if(IDX)return IDX;IDX=[];D.forEach(d=>{const dd=new Set(qtoks(d.n));IDX.push({t:'d',label:d.n,href:d.id,own:dd,sec:new Set(),dep:dd});
+ d.secs.forEach(s=>{const ss=new Set(qtoks(s.n));IDX.push({t:'s',label:s.n,href:link(d,s),own:ss,sec:ss,dep:dd});
+  s.items.forEach(i=>IDX.push({t:'i',label:i.n+' · '+s.n,href:link(d,s,i),own:new Set(qtoks(i.n)),sec:ss,dep:dd}))})});return IDX}
+function findCats(Q){if(!Q.size)return[];const out=[];
+ idx().forEach(e=>{const own=[...e.own].filter(w=>Q.has(w)),ng=own.filter(w=>!GEN.has(w));let sc=0;
+  if(e.t==='d'){if(own.length)sc=3*own.length}
+  else if(e.t==='s'){if(ng.length)sc=2*ng.length+(own.length-ng.length)}
+  else if(ng.length){sc=3*ng.length+[...e.sec].filter(w=>Q.has(w)).length}
+  if(sc)out.push({sc,e})});
+ const ord={s:0,d:1,i:2};
+ return out.sort((a,b)=>b.sc-a.sc||ord[a.e.t]-ord[b.e.t]).slice(0,5).map(o=>o.e)}
+const catLinks=cs=>LK(cs.map(e=>A('#'+e.href,e.label)));
+
+function parseQuery(text){
+ const t=text.toLowerCase(),q={t,Q:new Set(qtoks(text)),max:null,min:null,sort:null,sale:false,isNew:false,best:false,size:null};
+ let m=t.match(/between\s*\$?\s*(\d+(?:\.\d+)?)\s*(?:and|to|-)\s*\$?\s*(\d+(?:\.\d+)?)/);
+ if(m){q.min=+m[1];q.max=+m[2]}
+ else{
+  m=t.match(/(?:under|below|less than|within|max(?:imum)?|upto|up to|cheaper than|not more than|<)\s*\$?\s*(\d+(?:\.\d+)?)/)||t.match(/\$\s*(\d+(?:\.\d+)?)\s*(?:or less|or under|or below|er moddhe|moddhe|er niche)/)||t.match(/(\d+(?:\.\d+)?)\s*(?:dollars?|usd|\$)?\s*(?:or less|or under|or below|er moddhe|moddhe|er niche)/);
+  if(m)q.max=+m[1];
+  m=t.match(/(?:over|above|more than|at least|from|starting at|>)\s*\$\s*(\d+(?:\.\d+)?)/);
+  if(m)q.min=+m[1]}
+ if(/\b(cheap\w*|lowest|low price|budget|affordable|inexpensive)\b/.test(t))q.sort='asc';
+ else if(/\b(expensive|premium|luxury|highest|priciest|high end)\b/.test(t))q.sort='desc';
+ q.sale=/\b(sale|discount(ed)?|on offer|deals?|clearance|reduced|markdown)\b/.test(t);
+ q.isNew=/\b(new arrivals?|newest|latest|just in|new in|new styles?|what.?s new)\b/.test(t);
+ q.best=/\b(best ?sell\w*|popular|top (rated|selling)|trending|most loved|favou?rites?)\b/.test(t);
+ m=t.match(/\bsize\s*[:#]?\s*(xxs|xs|s|m|l|xl|xxl|xxxl|[2-4]xl|\d{1,2}(?:\.5)?(?:y|t|m)?)\b/);if(m)q.size=m[1].toUpperCase();
+ return q}
+const pT=p=>p._t||(p._t={name:new Set(qtoks(p.n)),cat:new Set(qtoks(p.cat.n+' '+p.sec.n)),dep:new Set(qtoks(p.dep.n)),more:new Set(qtoks([p.desc,p.material,list(p.colors).join(' '),p.keywords,p.tag].join(' ')))});
+function searchProducts(q){
+ const none={items:[],scores:[]};if(DEMO)return none;
+ const content=[...q.Q].filter(w=>!CTRL.has(w)),ng=content.filter(w=>!GEN.has(w)),gen=content.filter(w=>GEN.has(w));
+ const filt=q.max!=null||q.min!=null||q.sale||q.isNew||q.best||q.sort;
+ if(!ng.length&&!gen.length&&!filt)return none;
+ let L=CAT.filter(p=>p.price!=null);
+ if(q.max!=null)L=L.filter(p=>p.price<=q.max);
+ if(q.min!=null)L=L.filter(p=>p.price>=q.min);
+ if(q.sale)L=L.filter(isSale);
+ if(q.isNew)L=L.filter(p=>p.tag==='New');
+ if(q.best)L=L.filter(p=>p.tag==='Bestseller');
+ if(q.size)L=L.filter(p=>{const s=sizesOf(p);return !s.length||s.includes(q.size)});
+ let r=L.map(p=>{const T=pT(p);let s=0,h=0;ng.forEach(w=>{if(T.name.has(w)){s+=4;h++}else if(T.cat.has(w)){s+=3;h++}else if(T.more.has(w)){s+=2;h++}else if(T.dep.has(w)){s+=1;h++}});gen.forEach(w=>{if(T.dep.has(w)||T.cat.has(w))s+=1});return{p,s,h}});
+ if(ng.length){const V=new Set();L.forEach(p=>{const T=pT(p);[T.name,T.cat,T.dep,T.more].forEach(S=>S.forEach(w=>V.add(w)))});const need=ng.filter(w=>V.has(w)).length;r=need?r.filter(o=>o.h>=need):[]}else if(gen.length)r=r.filter(o=>o.s>0);
+ if(gen.length){const gm=r.filter(o=>gen.some(w=>pT(o.p).dep.has(w)||pT(o.p).cat.has(w)));if(gm.length)r=gm}
+ if(q.sort)r.sort((a,b)=>q.sort==='desc'?b.p.price-a.p.price:a.p.price-b.p.price);
+ else r.sort((a,b)=>b.s-a.s||(b.p.tag==='Bestseller')-(a.p.tag==='Bestseller')||a.p.price-b.p.price);
+ if(!r.length&&q.size){const o=searchProducts(Object.assign({},q,{size:null}));o.sizeMiss=true;return o}
+ return{items:r.map(o=>o.p),scores:r.map(o=>o.s)}}
+const pUrl=p=>p.url||'#'+link(p.dep,p.sec,p.cat);
+function card(p){const tag=isOut(p)?'Sold out':p.tag;
+ return `<a class="av-p" href="${x(pUrl(p))}"${p.url?' target="_blank" rel="noopener"':''}><span class="av-th" style="background:${p.dep.c}">${p.img?`<img src="${x(p.img)}" alt="" loading="lazy" onerror="this.remove()">`:''}</span><span class="av-pi"><b>${x(p.n)}</b><em>${x(p.cat.n)} · ${x(p.dep.n)}</em><span class="av-pr">${money(p.price)}${p.was?`<s>${money(p.was)}</s>`:''}</span></span>${tag?`<u class="av-tg">${x(tag)}</u>`:''}</a>`}
+let LAST=null;
+const PAGE=4;
+function moreOpt(){return LAST&&LAST.shown<LAST.list.length?[O(`Show more (${LAST.list.length-LAST.shown})`,'more')]:[]}
+function cardsNext(){const a=LAST.list.slice(LAST.shown,LAST.shown+PAGE);LAST.shown+=a.length;return a.map(card).join('')}
+function productList(items,intro,extra){items=items.filter(p=>!isOut(p)).concat(items.filter(isOut));LAST={list:items,shown:0};const n=items.length;
+ const h=`<p>${intro}</p>${cardsNext()}${n>PAGE?`<p class="av-sm" style="margin-top:10px">Showing ${LAST.shown} of ${n}.</p>`:''}${extra||''}`;
+ return{html:h,opts:[...moreOpt(),O('Shop by category','depts'),O('Main menu','menu')],wide:true}}
+function moreMsg(){if(!LAST||LAST.shown>=LAST.list.length)return{html:'<p>That is everything I have for this search. Want to browse by category?</p>',opts:[O('Shop by category','depts'),O('Main menu','menu')]};
+ const h=cardsNext();return{html:`<p>More matches:</p>${h}<p class="av-sm" style="margin-top:10px">Showing ${LAST.shown} of ${LAST.list.length}.</p>`,opts:[...moreOpt(),O('Shop by category','depts'),O('Main menu','menu')],wide:true}}
+function detail(p,q){const L=[];
+ if(p.desc)L.push(x(p.desc));
+ const c=list(p.colors);if(c.length)L.push(`<b>Colors:</b> ${x(c.join(', '))}`);
+ const s=list(p.sizes);if(s.length)L.push(`<b>Sizes:</b> ${x(s.join(', '))}`);
+ if(p.material)L.push(`<b>Material:</b> ${x(p.material)}`);
+ const st=stockTxt(p);if(st)L.push(`<b>Availability:</b> ${x(st)}`);
+ let h=`<p><b>${x(p.n)}</b> is ${money(p.price)}${p.was?` (was ${money(p.was)})`:''}.</p>`;
+ if(q.size){const so=sizesOf(p);h+=so.length?`<p>${so.includes(q.size)?`Size <b>${x(q.size)}</b> is available.`:`Size <b>${x(q.size)}</b> is not listed for this item. Available sizes: ${x(so.join(', '))}.`}</p>`:`<p>Sizes are shown on the product page.</p>`}
+ if(L.length)h+=UL(L);
+ if(!st)h+=`<p class="av-sm">Current availability is shown on the product page.</p>`;
+ return{html:h+card(p),opts:[O('See similar','say','similar to '+p.n),O('Size help','say','I need help with sizing'),O('Main menu','menu')],wide:true}}
+function productAnswer(pr,q,t){const items=pr.items,n=items.length,top=items[0],nm=[...pT(top).name];
+ const hits=nm.filter(w=>q.Q.has(w)).length,second=pr.scores[1]||0;
+ if(/\b(tell me about|details?|info|available|in stock|stock|colou?rs?|sizes?|material|made (of|from)|fabric|how much|price|cost|worth)\b/.test(t)&&hits>=Math.min(2,nm.length)&&(n===1||pr.scores[0]>=second+3))return detail(top,q);
+ const bits=[];if(q.max!=null&&q.min!=null)bits.push(`between ${money(q.min)} and ${money(q.max)}`);else if(q.max!=null)bits.push(`under ${money(q.max)}`);else if(q.min!=null)bits.push(`over ${money(q.min)}`);
+ if(q.sale)bits.push('on sale');if(q.isNew)bits.push('new');if(q.best)bits.push('bestsellers');
+ let intro=`I found <b>${n}</b> ${n===1?'match':'matches'}${bits.length?' ('+bits.join(', ')+')':''}${q.sort==='asc'?', cheapest first':q.sort==='desc'?', highest price first':''}.`;
+ if(q.size)intro+=pr.sizeMiss?` None of these list size ${x(q.size)}, so these are the closest matches.`:` Showing items with size ${x(q.size)} (or no sizes listed).`;
+ return productList(items,intro)}
+
+/* ---------- size helper ---------- */
+function rowFor(rows,col,v){for(const r of rows){const rg=r[col];if(Array.isArray(rg)&&v<=rg[1])return r}return null}
+function sizeByMeasure(t){const re=/(bust|waist|hips?|chest|neck)\D{0,14}?(\d{2,3}(?:\.\d)?)\s*(cm|in|inch|inches|")?/g;const got={};let m;
+ while((m=re.exec(t))){const k=m[1].replace(/s$/,'');let v=parseFloat(m[2]);const cm=m[3]==='cm'||(!m[3]&&v>(k==='neck'?25:60));if(cm)v=v/2.54;got[k]=Math.round(v*10)/10}
+ const keys=Object.keys(got);if(!keys.length)return null;
+ const women=/\b(women|woman|ladies|lady|female|girl)\b/.test(t)||got.bust!=null||got.hip!=null;
+ const g=women?SZ.women:SZ.men,cols=women?{bust:2,waist:3,hip:4}:{chest:1,waist:2,neck:3},res=[];
+ keys.forEach(k=>{const c=cols[k];if(!c)return;const r=rowFor(g.r,c,got[k]);res.push({k,v:got[k],size:r?r[0]:null})});
+ if(!res.length)return null;
+ const order=g.r.map(r=>r[0]);let top=-1;res.forEach(r=>{if(r.size)top=Math.max(top,order.indexOf(r.size))});
+ const lines=res.map(r=>`${r.k} ${r.v} in → ${r.size?`<b>${x(r.size)}</b>`:'larger than our chart'}`);
+ let h=`<p>For ${women?'women’s':'men’s'} clothing, based on what you told me:</p>${UL(lines)}`;
+ if(res.some(r=>!r.size))h+=`<p>Some of your measurements are above our largest size, so please message us and we will help you find the best fit.</p>`;
+ else h+=`<p>My suggestion: <b>${x(order[top])}</b>. If you are between sizes, the larger one is the safer pick, or go smaller for a closer fit. This is a guide, so check the product page for fit notes.</p>`;
+ return h+LK([A('#info-size','Open size guide',` data-szt="${women?'women':'men'}"`),A('#info-contact','Ask about sizing')])}
+function sizeHelp(t){const tabs=[['women','Women’s clothing'],['men','Men’s clothing'],['kids','Kids & baby'],['shoes','Shoes'],['jewelry','Rings & jewelry']];let pick=null;
+ if(/\b(shoe|sneaker|boot|sandal|loafer|foot|feet)/.test(t))pick='shoes';
+ else if(/\b(ring|bracelet|necklace|jewel)/.test(t))pick='jewelry';
+ else if(/\b(kid|baby|toddler|child|boy|girl|son|daughter|infant)/.test(t))pick='kids';
+ else if(/\b(women|woman|ladies|lady|female|dress|skirt|bust)/.test(t))pick='women';
+ else if(/\b(men|man|male|chest|neck)\b/.test(t))pick='men';
+ if(pick)return `<p>Here is how to measure for <b>${x(SZ[pick].t.toLowerCase())}</b>:</p>${UL(SZ[pick].tip.slice(0,2).map(x))}<p>Tip: for clothing, send me your measurements, for example “bust 36 waist 29”, and I will suggest a size.</p>`+LK([A('#info-size','See full '+SZ[pick].t.toLowerCase()+' chart',` data-szt="${pick}"`),A('#info-contact','Ask a person')]);
+ return `<p>Happy to help with sizing. Pick a guide below, or send me your measurements (for example “bust 36 waist 29” or “chest 40 waist 34”) and I will suggest a size.</p>`+LK(tabs.map(([k,l])=>A('#info-size',l,` data-szt="${k}"`)))}
+
+/* ---------- policy answers ---------- */
+function contact(){let h=`<p>You can reach our team here. We reply within <b>${x(STORE.replyTime)}</b>.</p><ul class="av-ul"><li>Email: ${mailTo()}</li>`;
+ if(!ph(STORE.phone))h+=`<li>Phone: <a href="tel:${x(STORE.phone.replace(/[^\d+]/g,''))}">${x(STORE.phone)}</a></li>`;if(hoursClean())h+=`<li>Hours: ${x(hoursClean())}</li>`;
+ return h+`</ul>`+LK([A('#info-contact','Open contact form'),A('#info-faq','Read the FAQ')])}
+function shipping(t){
+ if(/\b(international|worldwide|outside|canada|uk|europe|australia|country|countries|overseas|bangladesh)\b/.test(t))
+  return `<p>We ship across the United States, including Alaska and Hawaii. If we ship to your country, the rate and delivery estimate show at checkout. Import duties and taxes are paid by the buyer.</p>`+LK([A('#info-shipping','Shipping info')]);
+ if(/\bfree\b/.test(t))return `<p>We do not offer free shipping right now. Shipping starts at <b>${x(STORE.rates[0][2])}</b> for Standard, and you see the exact rate at checkout before you pay.</p>`+LK([A('#info-shipping','Shipping rates')]);
+ return `<p>Orders are packed within <b>${x(STORE.processing)}</b>, then delivered by the method you choose at checkout:</p>${UL(STORE.rates.map((r,i)=>`<b>${x(r[0])}</b>: ${x(r[1])}, ${x(r[2])}`))}<p>Estimates start from the day your order ships, and you get a tracking link by email.</p>`+LK([A('#info-shipping','Shipping info'),A('#info-track','Track my order')])}
+function returns(t){let h=`<p>You can return most items within <b>${x(STORE.returnDays)} days</b> of delivery for a refund to your original payment method. Items must be unworn, unused and have tags attached.</p>`;
+ if(/\b(exchange|swap|different size|wrong size|another size)\b/.test(t))h+=`<p>For an exchange, start a return and tell us the size or color you want instead. If it is in stock, we will send it.</p>`;
+ else h+=`<p>Not returnable: final sale items, pierced earrings, personalized items, opened beauty products, gift cards and used gadgets. Refunds arrive 5–10 business days after we receive your return.</p>`;
+ return h+LK([A('#info-returns','Returns & refunds'),A('#info-contact','Start a return')])}
+const mainOpts=()=>[O('Shop by category','depts'),O('Shipping & delivery','say','How long does shipping take?'),O('Returns & refunds','say','What is your return policy?'),O('Size help','say','I need help with sizing'),O('Track my order','say','Where is my order?'),O('New arrivals','say','Show me new arrivals'),O('On sale','say','What is on sale?'),O('Talk to the team','say','I want to contact you')];
+const follow=()=>[O('Shop by category','depts'),O('Main menu','menu')];
+const POLICY=new Set(['greet','thanks','bot','menu','browse','human','cancel','faulty','returns','track','privacy','about','payment','shipping']);
+const TOPICS=[
+ {id:'greet',k:[/^\s*(hi+|hello|hey+|hola|salam|assalamu\w*|good (morning|evening|afternoon))\b/],r:()=>({html:`<p>Hi! 👋 What can I help you with today?</p>`,opts:mainOpts()})},
+ {id:'thanks',k:[/\b(thanks|thank you|thx|ty|dhonnobad|shukriya)\b/],r:()=>({html:`<p>You are welcome! Anything else I can help with?</p>`,opts:follow()})},
+ {id:'menu',k:[/\b(menu|what can you do|options)\b/,/^\s*help\s*[!?.]*$/],r:()=>({html:`<p>Here is what I can help with. Tap a topic or type your question:</p>`,opts:mainOpts()})},
+ {id:'browse',k:[/\b(categories|category|departments?|browse|shop all|what do you sell|what do you have|catalog(ue)?)\b/],r:()=>deptsMsg()},
+ {id:'bot',k:[/\b(are you (a |an )?(bot|ai|robot|human|real)|real person|who are you)\b/],r:()=>`<p>I am an automated assistant built into this store, not a person. I answer from our policies and product listings, and help you find the right page. For anything else, our team is happy to help.</p>`+contact()},
+ {id:'human',k:[/\b(human|agent|representative|contact|email us|phone number|call us|call you|whatsapp|support|complain\w*|speak|talk to|jogajog)\b/],r:()=>contact()},
+ {id:'cancel',k:[/\b(cancel\w*|change (my |the )?(order|address)|wrong address|edit (my )?order|modify (my )?order)\b/],r:()=>`<p>Contact us as soon as you can with your order number. If the order has not been packed yet, we can change or cancel it. Once it has shipped, you can return it when it arrives.</p>`+LK([A('#info-contact','Contact us'),A('#info-returns','Returns & refunds')])},
+ {id:'faulty',k:[/\b(damaged|defect\w*|faulty|broken|wrong item|not working|warranty|guarantee|missing item|incorrect)\b/],r:()=>`<p>Sorry about that! Contact us within <b>7 days</b> of delivery with your order number and a clear photo. We will replace the item or refund you in full, and we cover return shipping for damaged, defective or incorrect items. Gadgets are covered against manufacturing defects.</p>`+LK([A('#info-contact','Contact us'),A('#info-returns','Returns & refunds')])},
+ {id:'returns',k:[/\b(return\w*|refund\w*|exchange\w*|money back|send (it )?back|ferot|ferat|swap)\b/,/\b(wrong size|doesn.?t fit|too (big|small|tight|loose))\b/],r:returns},
+ {id:'track',k:[/\b(track\w*|order status|where is my|my (order|package|parcel)|parcel|package)\b/,/\b(kothay|kobe pabo)\b/],r:()=>`<p>Your tracking link is emailed as soon as your order ships, usually within ${x(STORE.processing)}. You can paste the number into our tracking page to open the carrier’s live status.</p><p>I cannot look up individual orders here. If you do not have a tracking email, check spam, then contact us with your order number.</p>`+LK([A('#info-track','Track my order'),A('#info-contact','Contact us')])},
+ {id:'sizing',k:[/\b(size|sizing|sizes|fit|fits|measure\w*|bust|waist|hips?|chest|neck|inseam|runs (small|large))\b/],r:sizeHelp},
+ {id:'shipping',k:[/\b(ship\w*|deliver\w*|arrive|dispatch|postage|how long)\b/,/\b(free shipping|express|expedited|standard|international|worldwide|overseas)\b/,/\b(delivery charge|koto din)\b/],r:shipping},
+ {id:'payment',k:[/\b(pay|payment\w*|card|visa|mastercard|amex|apple pay|shop pay|paypal|declined|secure|safe|checkout)\b/],r:()=>`<p>We accept major credit and debit cards, <b>Shop Pay</b> and <b>Apple Pay</b>. Payments are processed by secure, PCI-compliant providers, and we never see or store your full card number.</p><p>If a payment is declined, it is usually a typo in the card details, a billing address mismatch or a bank security hold. Double-check the details or try another method.</p>`+LK([A('#info-faq','Payment FAQ')])},
+ {id:'discount',k:[/\b(discount\w*|coupon\w*|promo\w*|code|offers?|deals?|first order|10%|voucher|sale)\b/],r:()=>`<p>New customers get <b>10% off their first order</b> when they sign up with their email (the sign-up is at the bottom of the home page). Enter any discount code at checkout before you pay. Codes cannot be combined unless stated, and they may exclude sale items.</p>`},
+ {id:'gift',k:[/\b(gifts?|present|birthday|anniversary|wedding|valentine\w*|christmas)\b/],r:()=>{const d=D.find(z=>z.id==='jewelry'),s=d&&d.secs.find(z=>z.id==='gifting'),L=[];if(d&&s){L.push(A('#'+link(d,s),'Gifting'));s.items.forEach(i=>L.push(A('#'+link(d,s,i),i.n)))}L.push(A('#jewelry','All jewelry'));return `<p>Great idea! Our <b>Jewelry → Gifting</b> section has gift sets and personalized pieces, and gift receipts are available on request. Tell me who it is for and I can point you to the right department.</p>`+LK(L)}},
+ {id:'privacy',k:[/\b(privacy|cookies|personal (info|data)|my data)\b/],r:()=>`<p>We never see your full card number and we do not sell your information. The details are in our privacy policy.</p>`+LK([A('#info-privacy','Privacy policy'),A('#info-terms','Terms of service')])},
+ {id:'about',k:[/\b(about (us|you|avanaah|the store)|what is avanaah|your story|who owns)\b/],r:()=>`<p>Avanaah is a curated lifestyle store: fashion for women, men and kids, plus shoes, jewelry, beauty, accessories and gadgets, all sorted by who they are for.</p>`+LK([A('#info-about','Our story'),A('#home','Start shopping')])}
+];
+const wrap=v=>typeof v==='string'?{html:v}:v;
+
+/* ---------- guided category browsing ---------- */
+const byId=(a,id)=>a.find(z=>z.id===id);
+function deptsMsg(){return{html:`<p>Here are our departments. Pick one to start browsing:</p>`,opts:[...D.map(d=>O(d.n,'dept',d.id)),O('New arrivals','say','Show me new arrivals'),O('On sale','say','What is on sale?')]}}
+function deptMsg(id){const d=byId(D,id);if(!d)return deptsMsg();
+ return{html:`<p><b>${x(d.n)}</b>: ${x(d.b)} Pick a section:</p>${LK([A('#'+d.id,'Open '+d.n+' page')])}`,opts:[...d.secs.map(s=>O(s.n,'sec',d.id+'|'+s.id)),O('← All departments','depts')]}}
+function secMsg(v){const[di,si]=v.split('|'),d=byId(D,di),s=d&&byId(d.secs,si);if(!s)return deptsMsg();
+ return{html:`<p><b>${x(s.n)}</b>. Which category are you looking for?</p>${LK([A('#'+link(d,s),'Open '+s.n+' page')])}`,opts:[...s.items.map(i=>O(i.n,'item',di+'|'+si+'|'+i.id)),O('← '+d.n,'dept',d.id),O('All departments','depts')]}}
+function itemMsg(v){const[di,si,ii]=v.split('|'),d=byId(D,di),s=d&&byId(d.secs,si),i=s&&byId(s.items,ii);if(!i)return deptsMsg();
+ const L=CAT.filter(p=>p.cat===i&&p.price!=null),page=LK([A('#'+link(d,s,i),'Open '+i.n+' page')]),back=[O('← '+s.n,'sec',di+'|'+si),O('All departments','depts')];
+ if(L.length){const r=productList(L,`<b>${x(i.n)}</b> (${x(s.n)}): ${L.length} ${L.length===1?'style':'styles'} right now.`,page);r.opts=[...moreOpt(),...back];return r}
+ if(DEMO)return{html:`<p><b>${x(i.n)}</b> is in ${x(s.n)}. Here is the full page:</p>${page}`,opts:back};
+ return{html:`<p>New styles are on the way for <b>${x(i.n)}</b>. In the meantime you can look at the page or browse something else.</p>${page}`,opts:back}}
+function run(o){switch(o.a){case'menu':return{html:`<p>Sure! What would you like help with?</p>`,opts:mainOpts()};case'depts':return deptsMsg();case'dept':return deptMsg(o.v);case'sec':return secMsg(o.v);case'item':return itemMsg(o.v);case'more':return moreMsg();case'say':return reply(o.v)}return deptsMsg()}
+
+/* ---------- FAQ fallback ---------- */
+function faqMatch(Q){if(!Q.size)return null;let best=null,bs=0;
+ FAQ.forEach(f=>{const q=new Set(qtoks(f[1])),a=new Set(qtoks(f[2].replace(/<[^>]+>/g,' ')));let s=0;Q.forEach(w=>{if(q.has(w))s+=2;else if(a.has(w))s+=1});if(s>bs){bs=s;best=f}});
+ return bs>=3?best:null}
+
+/* ---------- the brain ---------- */
+function reply(text){
+ const t=text.toLowerCase().trim();
+ if(/[ঀ-৿]/.test(t))return{html:`<p>Sorry, I understand English best right now. Please type your question in English (Banglish is fine too, like “delivery koto din”), or contact our team.</p>`+contact(),opts:follow()};
+ if(/\b(bust|waist|hips?|chest|neck)\b/.test(t)&&/\d/.test(t)){const m=sizeByMeasure(t);if(m)return{html:m,opts:follow()}}
+ const q=parseQuery(text);
+ let best=null,bs=0;TOPICS.forEach(tp=>{const s=tp.k.filter(re=>re.test(t)).length;if(s>bs){bs=s;best=tp}});
+ if(best&&POLICY.has(best.id)){const r=wrap(best.r(t));if(!r.opts)r.opts=follow();return r}
+ let pr=searchProducts(q);
+ if(q.size){const pu=searchProducts(Object.assign({},q,{size:null}));if(pu.items.length){const nm=[...pT(pu.items[0]).name];if(nm.length>=2&&nm.every(w=>q.Q.has(w)))pr=pu}}
+ const Qc=new Set([...q.Q].filter(w=>!CTRL.has(w))),cats=findCats(Qc);
+ if(pr.items.length){const r=productAnswer(pr,q,t);
+  if(best&&best.id==='discount'&&r.html){const dt=wrap(best.r(t)).html;r.html=/\b(code|coupon|promo\w*|voucher|first order|10%)\b/.test(t)?dt+r.html:r.html+dt}
+  if(best&&best.id==='gift'&&r.html)r.html=wrap(best.r(t)).html+r.html;
+  if(cats.length&&r.wide&&pr.items.length>1)r.html+=`<p class="av-sm" style="margin-top:10px">Or browse:</p>${catLinks(cats.slice(0,3))}`;
+  return r}
+ if(q.isNew||q.sale||q.best){const what=q.sale?'sale':q.isNew?'new':'bestseller',href=q.sale?'#sale':'#new';
+  if(best&&best.id==='discount')return{html:wrap(best.r(t)).html+(DEMO?'':`<p>There are no ${what} items matching that right now.</p>`)+LK([A('#sale','Open sale page')]),opts:follow()};
+  return{html:DEMO?`<p>${q.sale?'Sale picks are':'New arrivals are'} on their own page:</p>${LK([A(href,q.sale?'Shop sale':'New arrivals')])}`:`<p>I could not find ${what} items matching that right now. You can check the full page or browse by category.</p>${LK([A(href,q.sale?'Shop sale':'New arrivals')])}`,opts:follow()}}
+ if(best){if(best.id==='sizing'&&cats.length)return{html:wrap(best.r(t)).html+`<p>You might also like:</p>`+catLinks(cats.slice(0,3)),opts:follow()};const r=wrap(best.r(t));if(!r.opts)r.opts=follow();return r}
+ if(cats.length)return{html:`<p>${DEMO?(cats.length===1?'Here is where that lives':'Here are the best places to look'):'I could not find matching products yet, but '+(cats.length===1?'here is where that lives':'here are the best places to look')}:</p>${catLinks(cats)}`,opts:follow()};
+ const f=faqMatch(q.Q);if(f)return{html:`<p>${f[2]}</p>`+LK([A('#info-faq','More FAQs'),A('#info-contact','Ask a person')]),opts:follow()};
+ const hasWords=[...q.Q].some(w=>!CTRL.has(w));
+ return{html:`<p>${hasWords?'I could not find that in our store yet.':'I am not sure I understood that.'} I can help with <b>products and categories</b>, <b>shipping</b>, <b>returns</b>, <b>sizing</b>, <b>tracking</b> and <b>payments</b>, or you can ask our team directly.</p>`,opts:[O('Shop by category','depts'),O('Talk to the team','say','I want to contact you'),O('Main menu','menu')]}}
+
+/* ---------- UI ---------- */
+const root=document.createElement('div');root.className='av';root.id='av';
+root.innerHTML=`<button class="av-fab" id="avfab" type="button" aria-label="Open chat assistant" aria-expanded="false" aria-controls="avp"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21 12a8 8 0 0 1-11.6 7.1L4 20l1-4.6A8 8 0 1 1 21 12z"/></svg><span>Ask us</span></button>
+<section class="av-panel" id="avp" role="dialog" aria-label="Avanaah shopping assistant" hidden>
+<header class="av-h"><span class="av-av" aria-hidden="true">A</span><div class="av-ht"><b>Avanaah Assistant</b><small><i></i><span>Automated helper · replies instantly</span></small></div>
+<button class="av-ib rs" id="avr" type="button" aria-label="Restart conversation"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 12a9 9 0 1 0 3-6.7"/><path d="M3 4v5h5"/></svg></button>
+<button class="av-ib" id="avx" type="button" aria-label="Close chat"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button></header>
+<div class="av-m" id="avm" role="log" aria-live="polite"></div>
+<form class="av-f" id="avf" autocomplete="off"><input id="avi" type="text" maxlength="300" placeholder="Ask about shipping, sizes, returns…" aria-label="Your message" enterkeyhint="send"><button class="av-send" type="submit" aria-label="Send"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button></form>
+<p class="av-note">Automated assistant. For order or account issues, <a href="#info-contact">contact our team</a>.</p></section>`;
+document.body.appendChild(root);
+const fab=root.querySelector('#avfab'),panel=root.querySelector('#avp'),msgs=root.querySelector('#avm'),inp=root.querySelector('#avi');
+let greeted=false,busy=false;
+const down=()=>{msgs.scrollTop=msgs.scrollHeight};
+function add(cls,html,isText){const b=document.createElement('div');b.className='av-b '+cls;if(isText)b.textContent=html;else b.innerHTML=html;msgs.appendChild(b);down();return b}
+function clearOpts(){msgs.querySelectorAll('.av-opts').forEach(e=>e.remove())}
+function opts(list){if(!list||!list.length)return;const w=document.createElement('div');w.className='av-opts';w._o=list;w.innerHTML=list.map((o,i)=>`<button class="av-o" type="button" data-i="${i}">${x(o.l)}</button>`).join('');msgs.appendChild(w);down()}
+function show(m,el){m=wrap(m);if(el){el.innerHTML=m.html;if(m.wide)el.classList.add('wide')}else add('bot'+(m.wide?' wide':''),m.html);opts(m.opts);down()}
+function greet(){show({html:`<p>Hi, I’m the Avanaah assistant, an automated helper. I can answer questions about <b>shipping, returns, sizing and orders</b>, and help you find the right category. What can I help you with?</p>`,opts:mainOpts()})}
+function respond(fn,echo){if(busy)return;busy=true;clearOpts();add('me',echo,true);
+ const dots=add('bot','<span class="av-dots" aria-label="Typing"><i></i><i></i><i></i></span>');
+ setTimeout(()=>{let m;try{m=fn()}catch(e){console.error(e);m={html:`<p>Sorry, something went wrong on my side. Please try again or contact our team.</p>`+contact(),opts:follow()}}
+  dots.remove();show(m);busy=false},380)}
+function setOpen(o){root.classList.toggle('open',o);panel.hidden=!o;fab.setAttribute('aria-expanded',o);
+ if(o){if(!greeted){greeted=true;greet()}setTimeout(()=>{if(innerWidth>520)inp.focus();down()},60)}else fab.focus()}
+fab.addEventListener('click',()=>setOpen(true));
+root.querySelector('#avx').addEventListener('click',()=>setOpen(false));
+root.querySelector('#avr').addEventListener('click',()=>{msgs.innerHTML='';LAST=null;busy=false;greet();inp.value=''});
+root.querySelector('#avf').addEventListener('submit',e=>{e.preventDefault();const v=inp.value.trim();if(!v)return;inp.value='';respond(()=>reply(v),v)});
+msgs.addEventListener('click',e=>{
+ const b=e.target.closest('.av-o');
+ if(b){const o=b.parentElement._o[+b.dataset.i];if(o)respond(()=>run(o),o.l);return}
+ const a=e.target.closest('a[href^="#"]');if(!a)return;
+ if(a.dataset.szt)SZSTATE.t=a.dataset.szt;
+ if(location.hash===a.getAttribute('href')){e.preventDefault();route()}
+ if(innerWidth<=520)setOpen(false)});
+root.querySelector('.av-note').addEventListener('click',e=>{if(e.target.closest('a')&&innerWidth<=520)setOpen(false)});
+addEventListener('keydown',e=>{if(e.key==='Escape'&&root.classList.contains('open'))setOpen(false)});
+window.AvanaahAssistant={reply,run,open:()=>setOpen(true)};
+})();
 </script></body></html>
